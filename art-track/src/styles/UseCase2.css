@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffefd5;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #222;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
