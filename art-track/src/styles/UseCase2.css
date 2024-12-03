@@ -48,11 +48,16 @@ h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s, background-color 0.3s ease;
 }
 
 .home-button button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.home-button button:active {
+  transform: scale(0.95);
 }
 
 /* Form Section */
@@ -99,33 +104,37 @@ input[type="checkbox"] {
   margin-right: 8px;
 }
 
-/* Buttons */
-button {
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.reset-button {
-  background-color: #ff4d4d;
-}
-
-.reset-button:hover {
-  background-color: #cc0000;
-}
-
+/* Form Buttons */
 .form-buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
   margin-top: 30px;
+}
+
+/* Hover Effects for Buttons */
+.submit-button {
+  background-color: #28a745;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.submit-button:active {
+  transform: scale(0.95);
+}
+
+.reset-button {
+  background-color: #f44336;
+}
+
+.reset-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+.reset-button:active {
+  transform: scale(0.95);
 }

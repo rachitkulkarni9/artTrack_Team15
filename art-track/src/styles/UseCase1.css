@@ -31,10 +31,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
 h2 {
   font-size: 2rem;
   text-align: center;
@@ -108,18 +104,42 @@ input[type="checkbox"] {
   margin-top: 20px;
 }
 
+/* Hover Effects for Buttons */
 .submit-button {
-  background-color: #007bff;
+  background-color: #28a745;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.submit-button:active {
+  transform: scale(0.95);
 }
 
 .reset-button {
   background-color: #f44336;
 }
 
-button:hover {
-  background-color: #0056b3;
+.reset-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
 }
 
-.reset-button:hover {
-  background-color: #c32d27;
+.reset-button:active {
+  transform: scale(0.95);
+}
+
+.home-button button {
+  background-color: #007bff;
+}
+
+.home-button button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.home-button button:active {
+  transform: scale(0.95);
 }
