@@ -23,8 +23,12 @@ const Test = () => {
           <p>Analyze the second use case for understanding art connections.</p>
         </Link>
       </div>
+      <footer className="footer">
+        <p>Made with ❤️ by Team 15</p>
+      </footer>
     </div>
   );
 };
+
 
 export default Test;
