@@ -33,6 +33,7 @@ SUBPERIOD_DATE_RANGES = {
     "Digital Art": (1990, 2024),
 }
 
+
 @use_case_2_bp.route('/use-case-2', methods=['POST'])
 def use_case_2():
     # Extract user inputs
@@ -42,10 +43,12 @@ def use_case_2():
 
     # Validate inputs
     if not selected_period or not selected_subperiods:
-        return jsonify({"error": "Please select both a period and subperiods."}), 400
+        return jsonify(
+            {"error": "Please select both a period and subperiods."}), 400
 
     # Determine date range based on selected subperiods
-    date_ranges = [SUBPERIOD_DATE_RANGES[sub] for sub in selected_subperiods if sub in SUBPERIOD_DATE_RANGES]
+    date_ranges = [SUBPERIOD_DATE_RANGES[sub]
+                   for sub in selected_subperiods if sub in SUBPERIOD_DATE_RANGES]
     if not date_ranges:
         return jsonify({"error": "Invalid subperiods selected."}), 400
 
