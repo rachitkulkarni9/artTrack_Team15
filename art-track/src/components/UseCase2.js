@@ -55,9 +55,31 @@ const UseCase2 = () => {
     setSelectedSubperiods([]);
   };
 
-  const handleSubmit = () => {
-    console.log("Selected Period:", selectedPeriod);
-    console.log("Selected Subperiods:", selectedSubperiods);
+  const handleSubmit = async () => {
+    const requestData = {
+      selectedPeriod: selectedPeriod,
+      selectedSubperiods: selectedSubperiods, // Send selected subperiods as an array
+    };
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/use-case-2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData), // Send the form data as JSON
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Backend Response:", data);
+        // Handle the response data, e.g., update the state or display results
+      } else {
+        console.error("Error:", await response.json());
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (

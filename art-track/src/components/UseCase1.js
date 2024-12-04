@@ -50,8 +50,26 @@ const UseCase1 = () => {
     });
   };
 
-  const handleSubmit = () => {
-    console.log("Submitted Data:", formData);
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/use-case-1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData), // Send the form data as JSON
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Backend Response:", data);
+        // Handle the response data, e.g., update the state or display results
+      } else {
+        console.error("Error:", await response.json());
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
