@@ -31,3 +31,92 @@ yarn-error.log*
 
 # macOS specific
 *.DS_Store
+
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+
+# Environment variables
+*.env
+*.env.*
+
+# Flask session files
+instance/
+
+# Flask debug and testing files
+instance/
+*.log
+*.sqlite3
+*.db
+
+# Pytest
+.cache/
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Python egg metadata
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Pipenv and Poetry files
+Pipfile.lock
+poetry.lock
+
+# PyInstaller
+*.spec
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Coverage reports
+htmlcov/
+coverage.xml
+.coverage
+.cache
+
+# MyPy cache
+.mypy_cache/
+
+# Bandit security scan
+bandit.yaml
+
+# Profiling data
+*.prof
+*.lprof
+
+# Logs
+*.log
+*.out
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+
+# Docker
+docker-compose.override.yml
+
+# Node.js dependencies (if applicable)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
