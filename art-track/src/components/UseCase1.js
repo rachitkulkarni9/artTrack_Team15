@@ -12,6 +12,10 @@ const UseCase1 = () => {
     maxSize: "",
   });
 
+  const [results, setResults] = useState([]); // State to store backend response
+  const [loading, setLoading] = useState(false); // Loading indicator
+  const [error, setError] = useState(null); // Error handling
+
   const handleMuseumChange = (e) => {
     const { value, checked } = e.target;
     setFormData((prev) => ({
@@ -48,9 +52,13 @@ const UseCase1 = () => {
       minSize: "",
       maxSize: "",
     });
+    setResults([]); // Clear results on reset
+    setError(null); // Clear errors
   };
 
   const handleSubmit = async () => {
+    setLoading(true); // Start loading
+    setError(null); // Reset error state
     try {
       const response = await fetch("http://localhost:5000/api/use-case-1", {
         method: "POST",
@@ -59,16 +67,24 @@ const UseCase1 = () => {
         },
         body: JSON.stringify(formData), // Send the form data as JSON
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        console.log("Backend Response:", data);
-        // Handle the response data, e.g., update the state or display results
+        console.log("Backend Response:", data); // Log backend response for debugging
+
+        if (data.results && data.results.length > 0) {
+          setResults(data.results); // Save results to state
+        } else {
+          setError("No results found or invalid response structure.");
+        }
       } else {
-        console.error("Error:", await response.json());
+        const errorData = await response.json();
+        setError(errorData.error || "An unknown error occurred.");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      setError("Error submitting form: " + error.message);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -85,84 +101,21 @@ const UseCase1 = () => {
       <div className="form-section">
         <h3>Museums (Select at least one):</h3>
         <div className="museum-group">
-          <div>
-            <label>
+          {/* Museum checkboxes */}
+          {["Boston", "Fine Arts Boston", "Harvard", "Kimbell", "NGA", "Nelson", "RenArt", "Yale"].map((museum) => (
+            <label key={museum}>
               <input
                 type="checkbox"
-                value="Boston"
-                checked={formData.selectedMuseums.includes("Boston")}
+                value={museum}
+                checked={formData.selectedMuseums.includes(museum)}
                 onChange={handleMuseumChange}
               />
-              Boston
+              {museum}
             </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Fine Arts Boston"
-                checked={formData.selectedMuseums.includes("Fine Arts Boston")}
-                onChange={handleMuseumChange}
-              />
-              Fine Arts Boston
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Harvard"
-                checked={formData.selectedMuseums.includes("Harvard")}
-                onChange={handleMuseumChange}
-              />
-              Harvard
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Kimbell"
-                checked={formData.selectedMuseums.includes("Kimbell")}
-                onChange={handleMuseumChange}
-              />
-              Kimbell
-            </label>
-          </div>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                value="NGA"
-                checked={formData.selectedMuseums.includes("NGA")}
-                onChange={handleMuseumChange}
-              />
-              NGA
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Nelson"
-                checked={formData.selectedMuseums.includes("Nelson")}
-                onChange={handleMuseumChange}
-              />
-              Nelson
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="RenArt"
-                checked={formData.selectedMuseums.includes("RenArt")}
-                onChange={handleMuseumChange}
-              />
-              RenArt
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Yale"
-                checked={formData.selectedMuseums.includes("Yale")}
-                onChange={handleMuseumChange}
-              />
-              Yale
-            </label>
-          </div>
+          ))}
         </div>
 
+        {/* Other input fields */}
         <h3>Medium:</h3>
         <input
           type="text"
@@ -200,7 +153,6 @@ const UseCase1 = () => {
           />
         </div>
 
-
         <h3>Size Range:</h3>
         <div className="size-range">
           <input
@@ -232,6 +184,29 @@ const UseCase1 = () => {
             Reset Filters
           </button>
         </div>
+      </div>
+
+      {/* Loading Indicator */}
+      {loading && <p>Loading...</p>}
+
+      {/* Error Display */}
+      {error && <p className="error-message">{error}</p>}
+
+      {/* Results Display */}
+      <div>
+        <h3>Results</h3>
+        <ul>
+          {results.map((item, index) => (
+            <li key={index}>
+              <p>Title: {item.title}</p>
+              <p>Culture: {item.culture}</p>
+              <p>Date Created: {item.dateCreated}</p>
+              <p>Medium: {item.medium}</p>
+              <p>Museum: {item.musuem}</p>
+              <p>Dimensions: {item.dimensions}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
