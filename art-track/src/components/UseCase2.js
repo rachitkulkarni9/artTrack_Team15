@@ -5,6 +5,9 @@ import "../styles/UseCase2.css";
 const UseCase2 = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [selectedSubperiods, setSelectedSubperiods] = useState([]);
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const periods = {
     "Renaissance and Baroque": [
@@ -35,51 +38,44 @@ const UseCase2 = () => {
       "Minimalism",
       "Postmodernism",
     ],
-    "Contemporary Art": ["Conceptual Art", "Performance Art", "Digital Art"],
-  };
-
-  const handlePeriodChange = (e) => {
-    setSelectedPeriod(e.target.value);
-    setSelectedSubperiods([]); // Clear subperiods when the period changes
-  };
-
-  const handleSubperiodChange = (e) => {
-    const { value, checked } = e.target;
-    setSelectedSubperiods((prev) =>
-      checked ? [...prev, value] : prev.filter((subperiod) => subperiod !== value)
-    );
-  };
-
-  const handleReset = () => {
-    setSelectedPeriod("");
-    setSelectedSubperiods([]);
+    "Contemporary Art": [
+      "Conceptual Art",
+      "Performance Art",
+      "Digital Art",
+    ],
   };
 
   const handleSubmit = async () => {
-    const requestData = {
-      selectedPeriod: selectedPeriod,
-      selectedSubperiods: selectedSubperiods, // Send selected subperiods as an array
-    };
-  
+    setLoading(true);
+    setError(null);
     try {
       const response = await fetch("http://localhost:5000/api/use-case-2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData), // Send the form data as JSON
+        body: JSON.stringify({ selectedPeriod, selectedSubperiods }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        console.log("Backend Response:", data);
-        // Handle the response data, e.g., update the state or display results
+        setResults(data.results || []);
       } else {
-        console.error("Error:", await response.json());
+        const errorData = await response.json();
+        setError(errorData.error || "An unknown error occurred.");
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    } catch (err) {
+      setError("Error submitting form: " + err.message);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleReset = () => {
+    setSelectedPeriod("");
+    setSelectedSubperiods([]);
+    setResults([]);
+    setError(null);
   };
 
   return (
@@ -88,22 +84,18 @@ const UseCase2 = () => {
         <button>Home</button>
       </Link>
       <h2>Use Case 2</h2>
-      <p className="description">
-        Explore artworks by selecting an art period and its subperiods.
-      </p>
+      <p className="description">Select an art period and subperiods to explore artworks.</p>
 
       <div className="form-section">
-        {/* Period Selection */}
-        <h3>Select Period:</h3>
+        <h3>Period:</h3>
         <select
-          className="dropdown"
           value={selectedPeriod}
-          onChange={handlePeriodChange}
-          required
+          onChange={(e) => {
+            setSelectedPeriod(e.target.value);
+            setSelectedSubperiods([]);
+          }}
         >
-          <option value="" disabled>
-            Select an Art Period
-          </option>
+          <option value="">Select Period</option>
           {Object.keys(periods).map((period) => (
             <option key={period} value={period}>
               {period}
@@ -111,25 +103,30 @@ const UseCase2 = () => {
           ))}
         </select>
 
-        {/* Subperiods Checkboxes */}
         {selectedPeriod && (
-          <div className="subperiods-section">
+          <>
             <h3>Subperiods:</h3>
-            {periods[selectedPeriod].map((subperiod) => (
-              <label key={subperiod} className="checkbox-label">
-                <input
-                  type="checkbox"
-                  value={subperiod}
-                  checked={selectedSubperiods.includes(subperiod)}
-                  onChange={handleSubperiodChange}
-                />
-                {subperiod}
-              </label>
-            ))}
-          </div>
+            <div className="checkbox-group">
+              {periods[selectedPeriod].map((subperiod) => (
+                <label key={subperiod}>
+                  <input
+                    type="checkbox"
+                    value={subperiod}
+                    checked={selectedSubperiods.includes(subperiod)}
+                    onChange={(e) => {
+                      const { value, checked } = e.target;
+                      setSelectedSubperiods((prev) =>
+                        checked ? [...prev, value] : prev.filter((sp) => sp !== value)
+                      );
+                    }}
+                  />
+                  {subperiod}
+                </label>
+              ))}
+            </div>
+          </>
         )}
 
-        {/* Form Buttons */}
         <div className="form-buttons">
           <button className="submit-button" onClick={handleSubmit}>
             Submit
@@ -138,6 +135,25 @@ const UseCase2 = () => {
             Reset Filters
           </button>
         </div>
+      </div>
+
+      {loading && <p>Loading...</p>}
+      {error && <p className="error-message">{error}</p>}
+
+      <div>
+        <h3>Results</h3>
+        <ul>
+          {results.map((item, index) => (
+            <li key={index}>
+              <p>Title: {item.title}</p>
+              <p>Culture: {item.culture}</p>
+              <p>Date Created: {item.dateCreated}</p>
+              <p>Medium: {item.medium}</p>
+              <p>Museum: {item.musuem}</p>
+              <p>Dimensions: {item.dimensions}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

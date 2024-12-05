@@ -57,6 +57,19 @@ const UseCase1 = () => {
   };
 
   const handleSubmit = async () => {
+    // Check if no inputs are provided
+    if (
+      formData.selectedMuseums.length === 0 &&
+      !formData.medium.trim() &&
+      !formData.startYear.trim() &&
+      !formData.endYear.trim() &&
+      !formData.minSize.trim() &&
+      !formData.maxSize.trim()
+    ) {
+      setError("Please provide at least one input before submitting.");
+      return;
+    }
+  
     setLoading(true); // Start loading
     setError(null); // Reset error state
     try {
@@ -67,13 +80,13 @@ const UseCase1 = () => {
         },
         body: JSON.stringify(formData), // Send the form data as JSON
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        console.log("Backend Response:", data); // Log backend response for debugging
-
+        console.log("Backend Response:", data);
+  
         if (data.results && data.results.length > 0) {
-          setResults(data.results); // Save results to state
+          setResults(data.results); 
         } else {
           setError("No results found or invalid response structure.");
         }
@@ -84,9 +97,10 @@ const UseCase1 = () => {
     } catch (error) {
       setError("Error submitting form: " + error.message);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
+  
 
   return (
     <div className="use-case-page">
@@ -102,7 +116,7 @@ const UseCase1 = () => {
         <h3>Museums (Select at least one):</h3>
         <div className="museum-group">
           {/* Museum checkboxes */}
-          {["Boston", "Fine Arts Boston", "Harvard", "Kimbell", "NGA", "Nelson", "RenArt", "Yale"].map((museum) => (
+          {["Boston", "Fine Arts Boston", "Harvard Art Museums website", "Kimbell Art Museum", "NGA", "Nelson Atkins Museum", "Renaissance Art", "Yale Univesity Art Gallery"].map((museum) => (
             <label key={museum}>
               <input
                 type="checkbox"

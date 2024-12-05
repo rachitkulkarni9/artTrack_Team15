@@ -69,7 +69,7 @@ def use_case_1():
         {area_filter}
       }}
     }}
-    ORDER BY ?dateCreated
+    LIMIT 100
     """
 
     try:
