@@ -2,10 +2,10 @@ from flask import Blueprint, request, jsonify
 from utils.sparql_helper import query_sparql
 import requests
 
-# Define Blueprint for Use Case 2
+
 use_case_2_bp = Blueprint("use_case_2", __name__)
 
-# Mapping subperiods to their respective time ranges
+
 SUBPERIOD_DATE_RANGES = {
     "Early Renaissance": (1400, 1490),
     "High Renaissance": (1490, 1527),
@@ -34,17 +34,17 @@ SUBPERIOD_DATE_RANGES = {
     "Digital Art": (1990, 2024),
 }
 
-# Function to cancel pending SPARQL queries
+
 def cancel_pending_queries():
     endpoint = "http://localhost:7200/rest/active-queries"
     try:
-        # List active queries
+        
         response = requests.get(endpoint, headers={"Accept": "application/json"})
         response.raise_for_status()
         active_queries = response.json()
         print(f"[DEBUG] Active Queries: {active_queries}")
 
-        # Cancel each query
+        
         for query in active_queries:
             query_id = query.get("queryId")
             if query_id:
@@ -59,24 +59,24 @@ def cancel_pending_queries():
 def use_case_2():
     print("[DEBUG] Received request for Use Case 2.")
 
-    # Cancel pending queries before executing a new one
+    
     print("[DEBUG] Cancelling pending queries...")
     cancel_pending_queries()
 
-    # Extract user inputs
+    
     data = request.json
     print(f"[DEBUG] Received data: {data}")
 
     selected_period = data.get("selectedPeriod", "")
     selected_subperiods = data.get("selectedSubperiods", [])
 
-    # Validate inputs
+    
     if not selected_period or not selected_subperiods:
         error_message = "[DEBUG] Error: Please select both a period and subperiods."
         print(error_message)
         return jsonify({"error": error_message}), 400
 
-    # Determine date range based on selected subperiods
+    
     date_ranges = [SUBPERIOD_DATE_RANGES[sub]
                    for sub in selected_subperiods if sub in SUBPERIOD_DATE_RANGES]
     print(f"[DEBUG] Mapped date ranges: {date_ranges}")
@@ -86,12 +86,12 @@ def use_case_2():
         print(error_message)
         return jsonify({"error": error_message}), 400
 
-    # Merge date ranges into a single range
+    
     start_year = min([start for start, _ in date_ranges])
     end_year = max([end for _, end in date_ranges])
     print(f"[DEBUG] Determined date range: {start_year} - {end_year}")
 
-    # Construct SPARQL query
+    
     sparql_query = f"""
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX smw: <http://www.semanticweb.org/rachi/ontologies/2024/10/artTrack#>
@@ -116,12 +116,12 @@ def use_case_2():
     print(f"[DEBUG] Constructed SPARQL Query:\n{sparql_query}")
 
     try:
-        # Execute SPARQL query
+        
         print("[DEBUG] Executing SPARQL query...")
         raw_results = query_sparql(sparql_query)
         print(f"[DEBUG] SPARQL Query Raw Results: {raw_results}")
 
-        # Parse the results
+        
         parsed_results = []
         for result in raw_results["results"]["bindings"]:
             parsed_result = {
