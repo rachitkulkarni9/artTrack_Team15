@@ -25,7 +25,4 @@ pip install requests python-dotenv
 python app.py
 
 
-The GRAPH DB endpoint hosted URL is - http://40.80.158.170:7200/repositories/ArtTrack_531
-
-
-
+The GRAPH DB endpoint hosted URL is - http://40.80.158.170:7200/
