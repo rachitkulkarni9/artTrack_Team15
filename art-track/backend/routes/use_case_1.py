@@ -28,7 +28,8 @@ def use_case_1():
     # Handle mandatory Medium filter
     if selected_medium:
         sparql_filters.append(
-            f'FILTER regex(?medium, "{selected_medium}", "i")')
+            f'FILTER(CONTAINS(LCASE(?medium),LCASE("{selected_medium}")))')
+        
 
     # Handle optional Date Created filter
     if start_year and end_year:
@@ -76,7 +77,6 @@ def use_case_1():
         # Execute SPARQL query and log it
         print("Constructed SPARQL Query:\n", sparql_query)
         raw_results = query_sparql(sparql_query)
-
         if not raw_results.get(
                 "results") or not raw_results["results"].get("bindings"):
             print("No results or invalid response structure")
@@ -88,9 +88,6 @@ def use_case_1():
         for result in raw_results["results"]["bindings"]:
             # Exclude results where `title` has an unwanted datatype
             title_data = result.get("title", {})
-            if "datatype" in title_data and title_data[
-                    "datatype"] == "http://www.semanticweb.org/rachi/ontologies/2024/10/artTrack#string":
-                continue  # Skip this record
 
             # Process other fields
             dimensions = result.get("dimensions", {}).get("value", "N/A")
@@ -101,6 +98,7 @@ def use_case_1():
 
             # Calculate area if dimensions are valid
             if dimensions != "N/A" and "*" in dimensions:
+                #print("Dimensions don't exist")
                 try:
                     width, height = map(float, dimensions.split("*"))
                     area = width * height
@@ -108,7 +106,7 @@ def use_case_1():
                     area = "Invalid dimensions"
             else:
                 area = "N/A"
-
+            #print("parsed_result is ", parsed_results)
             # Append parsed result
             parsed_results.append({
                 "culture": result.get("culture", {}).get("value", "N/A"),

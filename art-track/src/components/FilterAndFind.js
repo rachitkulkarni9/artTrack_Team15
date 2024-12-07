@@ -57,6 +57,7 @@ const FIlterAndFind = () => {
   };
 
   const handleSubmit = async () => {
+    
     // Check if no inputs are provided
     if (
       formData.selectedMuseums.length === 0 &&
@@ -88,11 +89,13 @@ const FIlterAndFind = () => {
         if (data.results && data.results.length > 0) {
           setResults(data.results); 
         } else {
+          setResults([])
           setError("No results found or invalid response structure.");
         }
       } else {
         const errorData = await response.json();
         setError(errorData.error || "An unknown error occurred.");
+        setResults([])
       }
     } catch (error) {
       setError("Error submitting form: " + error.message);
