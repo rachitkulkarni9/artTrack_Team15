@@ -1,6 +1,6 @@
 import requests
 
-def query_sparql(query, endpoint="http://localhost:7200/repositories/ArtTrack_SER531"):
+def query_sparql(query, endpoint="http://40.80.158.170:7200/repositories/ArtTrack_531"):
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
