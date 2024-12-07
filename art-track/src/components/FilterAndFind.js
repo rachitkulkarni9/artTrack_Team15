@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/UseCase1.css";
 
-const UseCase1 = () => {
+const FIlterAndFind = () => {
   const [formData, setFormData] = useState({
     selectedMuseums: [],
     medium: "",
@@ -73,7 +73,7 @@ const UseCase1 = () => {
     setLoading(true); // Start loading
     setError(null); // Reset error state
     try {
-      const response = await fetch("http://localhost:5000/api/use-case-1", {
+      const response = await fetch("http://localhost:5000/api/filter-and-find", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,9 +107,9 @@ const UseCase1 = () => {
       <Link to="/" className="home-button">
         <button>Home</button>
       </Link>
-      <h2>Use Case 1</h2>
+      <h2>Filter And Find...</h2>
       <p className="description">
-        This page allows you to explore artworks based on selected filters, such as museums, medium, years, and size.
+      Ever wished you could swipe right on artworks? Filter And Find is here to make your art-hunting dreams come true! Pick and choose your filters—museums, mediums, year ranges, dimensions—you name it, we’ve got it. This page lets you be as picky as you want while fetching exactly what you’re looking for from our datasets. With a smooth interface and results served up just right, it’s like matchmaking for art enthusiasts. Who knows? Your next masterpiece obsession might just be a filter away!
       </p>
 
       <div className="form-section">
@@ -226,4 +226,4 @@ const UseCase1 = () => {
   );
 };
 
-export default UseCase1;
+export default FIlterAndFind;

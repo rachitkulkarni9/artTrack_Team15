@@ -11,16 +11,16 @@ const Test = () => {
         <h1>ArtTrack</h1>
       </header>
       <p className="intro">
-        Uncover the stories behind the art. ArtTrack simplifies the exploration of artwork histories, from ownership and transfers to cultural connections. Built on advanced semantic web technologies, our platform provides a seamless way to trace provenance, verify authenticity, and discover the broader narratives that give art its significance.
+      Ready to unleash your inner art detective? ArtTrack is your one-stop shop for exploring the details of art history, from who made it to the cultural vibes it brings to the table. With smart tech working behind the scenes (don’t worry, we won’t bore you with the nerdy details… unless you ask), you can filter, sort, and dive into artworks like a pro. Want to explore the Renaissance or just find out how big a painting really is? We've got you covered. So grab your virtual magnifying glass and let’s make some epic art discoveries—because who said art history can’t be fun?
       </p>
       <div className="card-container">
-        <Link to="/use-case-1" className="card">
-          <h3>Use Case 1</h3>
-          <p>Explore the first scenario to dive deep into art provenance and history.</p>
+        <Link to="/filter-and-find" className="card">
+          <h3>Filter And Find</h3>
+          <p>Find artworks with dynamic filters tailored to your preferences.</p>
         </Link>
-        <Link to="/use-case-2" className="card">
-          <h3>Use Case 2</h3>
-          <p>Analyze the second use case for understanding art connections.</p>
+        <Link to="/art-through-time" className="card">
+          <h3>Art Through Time</h3>
+          <p>Explore artworks from specific cultural periods with customizable filters.</p>
         </Link>
       </div>
       <footer className="footer">

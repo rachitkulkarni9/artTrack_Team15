@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/UseCase2.css";
 
-const UseCase2 = () => {
+const ArtThroughTime = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [selectedSubperiods, setSelectedSubperiods] = useState([]);
   const [results, setResults] = useState([]);
@@ -49,7 +49,7 @@ const UseCase2 = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:5000/api/use-case-2", {
+      const response = await fetch("http://localhost:5000/api/art-through-time", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,8 +83,8 @@ const UseCase2 = () => {
       <Link to="/" className="home-button">
         <button>Home</button>
       </Link>
-      <h2>Use Case 2</h2>
-      <p className="description">Select an art period and subperiods to explore artworks.</p>
+      <h2>Art Through Time...</h2>
+      <p className="description">Step into the past with Art Through Time, where you can explore the art vibes of your favorite cultural periods. Whether you’re all about the Renaissance, Baroque, or something a bit more modern, this page lets you fetch all the juicy artwork details from across datasets. Once you’ve picked a period, we throw in extra filters so you can narrow things down to exactly what you’re looking for. Think of it as a guided art tour—but you’re the boss, and the guide takes your orders. Let’s make some history, one filter at a time!</p>
 
       <div className="form-section">
         <h3>Period:</h3>
@@ -159,4 +159,4 @@ const UseCase2 = () => {
   );
 };
 
-export default UseCase2;
+export default ArtThroughTime;
