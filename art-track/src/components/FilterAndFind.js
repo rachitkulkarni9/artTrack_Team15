@@ -12,9 +12,9 @@ const FIlterAndFind = () => {
     maxSize: "",
   });
 
-  const [results, setResults] = useState([]); // State to store backend response
-  const [loading, setLoading] = useState(false); // Loading indicator
-  const [error, setError] = useState(null); // Error handling
+  const [results, setResults] = useState([]); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
 
   const handleMuseumChange = (e) => {
     const { value, checked } = e.target;
@@ -29,7 +29,7 @@ const FIlterAndFind = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "startYear" || name === "endYear") {
-      if (/^\d{0,4}$/.test(value)) { // Enforce 4-digit limit
+      if (/^\d{0,4}$/.test(value)) { 
         setFormData((prev) => ({
           ...prev,
           [name]: value,
@@ -52,13 +52,12 @@ const FIlterAndFind = () => {
       minSize: "",
       maxSize: "",
     });
-    setResults([]); // Clear results on reset
-    setError(null); // Clear errors
+    setResults([]); 
+    setError(null); 
   };
 
   const handleSubmit = async () => {
     
-    // Check if no inputs are provided
     if (
       formData.selectedMuseums.length === 0 &&
       !formData.medium.trim() &&
@@ -71,15 +70,15 @@ const FIlterAndFind = () => {
       return;
     }
   
-    setLoading(true); // Start loading
-    setError(null); // Reset error state
+    setLoading(true); 
+    setError(null); 
     try {
       const response = await fetch("http://localhost:5000/api/filter-and-find", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData), // Send the form data as JSON
+        body: JSON.stringify(formData), 
       });
   
       if (response.ok) {

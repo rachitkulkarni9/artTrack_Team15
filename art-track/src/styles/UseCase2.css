@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
-  background-color: #f8f9fa; /* Light background */
+  background-color: #f8f9fa; 
   color: #333;
   line-height: 1.6;
 }
@@ -18,7 +18,7 @@ body {
   border: 1px solid #eaeaea;
 }
 
-/* Header */
+
 h2 {
   font-size: 2.5rem;
   text-align: center;
@@ -33,7 +33,7 @@ h2 {
   margin-bottom: 40px;
 }
 
-/* Home Button */
+
 .home-button {
   position: absolute;
   top: 20px;
@@ -60,7 +60,7 @@ h2 {
   transform: scale(0.95);
 }
 
-/* Form Section */
+
 .form-section {
   margin-top: 30px;
 }
@@ -72,7 +72,7 @@ h3 {
   font-weight: 600;
 }
 
-/* Dropdown */
+
 .dropdown {
   width: 100%;
   padding: 12px;
@@ -88,7 +88,7 @@ h3 {
   outline: none;
 }
 
-/* Subperiod Checkboxes */
+
 .subperiods-section {
   margin-bottom: 25px;
 }
@@ -104,7 +104,7 @@ input[type="checkbox"] {
   margin-right: 8px;
 }
 
-/* Form Buttons */
+
 .form-buttons {
   display: flex;
   justify-content: center;
@@ -112,7 +112,7 @@ input[type="checkbox"] {
   margin-top: 30px;
 }
 
-/* Hover Effects for Buttons */
+
 .submit-button {
   background-color: #28a745;
 }

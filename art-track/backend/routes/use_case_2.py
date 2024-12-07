@@ -108,7 +108,7 @@ def use_case_2():
          smw:hasDimension ?dimensions ;
          smw:hasMedium ?medium .
 
-      # Filter for date range, converting `dateCreated` (xsd:string) to integer
+      
       FILTER(xsd:integer(?dateCreated) >= {start_year} && xsd:integer(?dateCreated) <= {end_year})
     }}
     LIMIT 100
