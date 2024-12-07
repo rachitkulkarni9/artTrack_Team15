@@ -55,7 +55,7 @@ def cancel_pending_queries():
         print("[DEBUG] Error managing active queries:", str(e))
 
 
-@use_case_2_bp.route("/use-case-2", methods=["POST"])
+@use_case_2_bp.route("/art-through-time", methods=["POST"])
 def use_case_2():
     print("[DEBUG] Received request for Use Case 2.")
 

@@ -5,7 +5,7 @@ from utils.sparql_helper import query_sparql
 use_case_1_bp = Blueprint("use_case_1", __name__)
 
 
-@use_case_1_bp.route("/use-case-1", methods=["POST"])
+@use_case_1_bp.route("/filter-and-find", methods=["POST"])
 def use_case_1():
     # Extract user inputs from the request
     data = request.json
